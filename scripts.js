@@ -1,3 +1,26 @@
+// Development Notice Banner functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const devBanner = document.querySelector('.dev-notice-banner');
+    const closeButton = document.querySelector('.dev-notice-close');
+    const body = document.body;
+
+    const bannerClosed = localStorage.getItem('devBannerClosed');
+    
+    if (bannerClosed === 'true') {
+        devBanner.classList.add('hidden');
+        body.classList.add('banner-hidden');
+    }
+
+    if (closeButton) {
+        closeButton.addEventListener('click', function() {
+            devBanner.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+            devBanner.classList.add('hidden');
+            body.classList.add('banner-hidden');
+            
+        });
+    }
+});
+
 const appData = {
   cumulus: {
     icon: 'img/project-logos/cumulus.png',

@@ -10,6 +10,111 @@
     display: none;
 }
 
+.dev-notice-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 12px 20px;
+    z-index: 2000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    animation: slideDown 0.5s ease-out;
+}
+
+.dev-notice-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.dev-notice-content i.fa-code-branch {
+    font-size: 16px;
+    color: #ffd700;
+}
+
+.dev-notice-content a {
+    color: #ffd700;
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px solid transparent;
+    transition: border-bottom-color 0.3s ease;
+}
+
+.dev-notice-content a:hover {
+    border-bottom-color: #ffd700;
+}
+
+.dev-notice-close {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    transition: background-color 0.3s ease;
+}
+
+.dev-notice-close:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.dev-notice-banner.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Adjust body padding when banner is visible */
+body {
+    padding-top: 50px;
+    transition: padding-top 0.3s ease;
+}
+
+body.banner-hidden {
+    padding-top: 0;
+}
+
+@media (max-width: 768px) {
+    .dev-notice-content {
+        font-size: 13px;
+        gap: 8px;
+        flex-wrap: wrap;
+        text-align: center;
+    }
+    
+    .dev-notice-close {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-left: 0;
+    }
+}
+
 html {
     scroll-behavior: smooth;
 }
