@@ -1,26 +1,3 @@
-// Development Notice Banner functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const devBanner = document.querySelector('.dev-notice-banner');
-    const closeButton = document.querySelector('.dev-notice-close');
-    const body = document.body;
-
-    const bannerClosed = localStorage.getItem('devBannerClosed');
-    
-    if (bannerClosed === 'true') {
-        devBanner.classList.add('hidden');
-        body.classList.add('banner-hidden');
-    }
-
-    if (closeButton) {
-        closeButton.addEventListener('click', function() {
-            devBanner.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-            devBanner.classList.add('hidden');
-            body.classList.add('banner-hidden');
-            
-        });
-    }
-});
-
 const appData = {
   cumulus: {
     icon: 'img/project-logos/cumulus.png',
@@ -54,7 +31,7 @@ const appData = {
     title: 'FlipCards',
     description: 'FlipCards is a beautiful study and flashcards app for iOS. Master any subject with an intuitive interface designed for effective studying.',
     screenshots: ['img/screenshots/flipcards/sc1.png', 'img/screenshots/flipcards/sc2.png', 'img/screenshots/flipcards/sc3.png'],
-    testflightUrl: 'https://testflight.apple.com/join/2hBxWMNR',
+    appStoreUrl: 'https://apps.apple.com/gb/app/flipcards-revision-made-easy/id6749154468',
     githubUrl: 'https://github.com/JoshOn360Hz/FlipCardsApp',
     websiteUrl: 'https://getflipcards.app'
   },
@@ -147,6 +124,13 @@ portfolio: {
   description: 'The website you are currently looking at! Built with modern HTML, CSS and JavaScript featuring a beautiful Apple-inspired design.',
   websiteUrl: null,
   githubUrl: 'https://github.com/JoshOn360Hz/portfolio'
+},
+uweai: {
+  icon: 'img/project-logos/UWEAI.png',
+  title: 'UWE AI Racing Society',
+  description: 'Website for the UWE AI Autonomous Racing Society, showcasing autonomous racing technology and society activities. Built with modern web technologies.',
+  websiteUrl: 'https://uweai.co.uk',
+  githubUrl: null
 }
 };
 
@@ -169,17 +153,26 @@ function preloadImage(src) {
 }
 
 function setupMobileNavigation() {
-  const hamburger = document.querySelector('.hamburger');
-  const navMenu = document.querySelector('.nav-menu');
-  const navLinks = navMenu ? navMenu.querySelectorAll('a') : [];
+  const hamburger = document.getElementById('mobileToggle');
+  const navMenu = document.querySelector('.sidebar');
+  const overlay = document.getElementById('mobileOverlay');
+  const navLinks = document.querySelectorAll('.sidebar-link');
   const body = document.body;
 
   if (!hamburger || !navMenu) return;
 
   hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('active');
-    navMenu.classList.toggle('active');
-    body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+    navMenu.classList.toggle('open');
+    overlay.classList.toggle('active');
+    body.style.overflow = navMenu.classList.contains('open') ? 'hidden' : '';
+  });
+
+  overlay.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    navMenu.classList.remove('open');
+    overlay.classList.remove('active');
+    body.style.overflow = '';
   });
 
   navLinks.forEach(link => {
@@ -188,23 +181,27 @@ function setupMobileNavigation() {
         e.preventDefault();
         const targetId = link.getAttribute('href').substring(1);
         const targetElement = document.getElementById(targetId);
+        
         if (targetElement) {
           targetElement.scrollIntoView({ 
             behavior: 'smooth', 
             block: 'start' 
           });
         }
+        
         hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
+        navMenu.classList.remove('open');
+        overlay.classList.remove('active');
         body.style.overflow = '';
       }
     });
   });
 
   document.addEventListener('click', (e) => {
-    if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+    if (!hamburger.contains(e.target) && !navMenu.contains(e.target) && !overlay.contains(e.target)) {
       hamburger.classList.remove('active');
-      navMenu.classList.remove('active');
+      navMenu.classList.remove('open');
+      overlay.classList.remove('active');
       body.style.overflow = '';
     }
   });
@@ -223,7 +220,7 @@ function setupModal() {
 
   function openModal(appKey) {
     const app = appData[appKey];
-    if (!app) return;
+    if (!app || !modalIcon || !modalTitle || !modalDescription || !modalScreenshots || !modalActions) return;
 
     modalIcon.src = app.icon;
     modalIcon.alt = app.title;
@@ -320,11 +317,15 @@ function setupModal() {
   }
 
   function closeModalHandler() {
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
   }
 
-  closeModal.addEventListener('click', closeModalHandler);
+  if (closeModal) {
+    closeModal.addEventListener('click', closeModalHandler);
+  }
   
   modal.addEventListener('click', (e) => {
     if (e.target === modal) closeModalHandler();
@@ -374,15 +375,19 @@ function setupScrollAnimations() {
   }, observerOptions);
 
   document.querySelectorAll('.app-card').forEach(card => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(30px)';
-    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(card);
+    if (card) { // Add null check
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(card);
+    }
   });
 }
 
 function setupNavbarBehavior() {
   const navbar = document.querySelector('.navbar');
+  if (!navbar) return; // Exit if navbar doesn't exist
+  
   let lastScrollY = window.scrollY;
 
   window.addEventListener('scroll', () => {
@@ -463,35 +468,114 @@ function setupViewMoreProjects() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+function setupScrollSpy() {
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.sidebar-link[href^="#"]');
+  
+  if (sections.length === 0 || navLinks.length === 0) {
+    console.log('No sections or nav links found');
+    return;
+  }
+  
+  console.log(`Found ${sections.length} sections and ${navLinks.length} nav links`);
+  
+  // Alternative approach using scroll event for more reliable detection
+  let currentActiveSection = null;
+  
+  function updateActiveNavigation() {
+    const scrollPosition = window.scrollY + window.innerHeight * 0.3;
+    let activeSection = null;
+    
+    sections.forEach(section => {
+      const rect = section.getBoundingClientRect();
+      const sectionTop = rect.top + window.scrollY;
+      const sectionBottom = sectionTop + rect.height;
+      
+      if (scrollPosition >= sectionTop && scrollPosition <= sectionBottom) {
+        activeSection = section;
+      }
+    });
+    
+    // If no section is found in the middle, find the closest one
+    if (!activeSection) {
+      let closestSection = null;
+      let closestDistance = Infinity;
+      
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        const distance = Math.abs(rect.top + rect.height / 2);
+        
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestSection = section;
+        }
+      });
+      
+      activeSection = closestSection;
+    }
+    
+    if (activeSection && activeSection !== currentActiveSection) {
+      currentActiveSection = activeSection;
+      const sectionId = activeSection.getAttribute('id');
+      
+      // Remove active class from all nav links
+      navLinks.forEach(link => link.classList.remove('active'));
+      
+      // Add active class to corresponding nav link
+      const correspondingLink = document.querySelector(`.sidebar-link[href="#${sectionId}"]`);
+      if (correspondingLink) {
+        correspondingLink.classList.add('active');
+      }
+    }
+  }
+  
+  // Use scroll event with throttling for better performance
+  let scrollTimeout;
+  window.addEventListener('scroll', () => {
+    if (scrollTimeout) {
+      clearTimeout(scrollTimeout);
+    }
+    scrollTimeout = setTimeout(updateActiveNavigation, 50);
+  });
+  
+  // Initial call
+  updateActiveNavigation();
+  
+  // Handle manual navigation clicks
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href').substring(1);
+      const targetElement = document.getElementById(targetId);
+      
+      if (targetElement) {
+        // Remove active class from all links
+        navLinks.forEach(navLink => navLink.classList.remove('active'));
+        // Add active class to clicked link
+        link.classList.add('active');
+        
+        // Update current active section
+        currentActiveSection = targetElement;
+        
+        // Smooth scroll to target
+        targetElement.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start' 
+        });
+      }
+    });
+  });
+}
 
+document.addEventListener('DOMContentLoaded', function() {
   setupMobileNavigation();
   setupModal();
   setupScrollAnimations();
   setupNavbarBehavior();
   preloadAppImages();
   setupViewMoreProjects();
-
-
-  // Active nav link on scroll
-  const sectionIds = ['home', 'apps', 'skills', 'experience', 'contact'];
-  const navLinks = sectionIds.map(id => document.getElementById('nav-' + id));
-  const sections = sectionIds.map(id => document.getElementById(id));
-  function onScrollActiveSection() {
-    let activeIdx = 0;
-    for (let i = 0; i < sections.length; i++) {
-      const sec = sections[i];
-      if (sec && sec.getBoundingClientRect().top <= 100) {
-        activeIdx = i;
-      }
-    }
-    navLinks.forEach((link, i) => {
-      if (link) link.classList.toggle('active', i === activeIdx);
-    });
-  }
-  window.addEventListener('scroll', onScrollActiveSection);
-  onScrollActiveSection();
-
+  setupScrollSpy();
+  
   const ctaButton = document.querySelector('.cta-button');
   if (ctaButton) {
     ctaButton.addEventListener('click', () => {
@@ -504,16 +588,18 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
-
+  
 });
 
 window.addEventListener('resize', () => {
-  const navMenu = document.querySelector('.nav-menu');
-  const hamburger = document.querySelector('.hamburger');
+  const navMenu = document.querySelector('.sidebar');
+  const hamburger = document.getElementById('mobileToggle');
+  const overlay = document.getElementById('mobileOverlay');
   
   if (window.innerWidth > 768 && navMenu && hamburger) {
-    navMenu.classList.remove('active');
+    navMenu.classList.remove('open');
     hamburger.classList.remove('active');
+    if (overlay) overlay.classList.remove('active');
     document.body.style.overflow = '';
   }
 });
