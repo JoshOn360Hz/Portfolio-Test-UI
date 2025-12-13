@@ -455,7 +455,7 @@ function setupViewMoreProjects() {
       requestAnimationFrame(() => {
         moreProjectsSection.classList.add('show');
         viewMoreBtn.classList.add('expanded');
-        viewMoreText.textContent = 'Show Less Projects';
+        viewMoreText.textContent = 'Show Fewer Projects';
         
         setTimeout(() => {
           moreProjectsSection.scrollIntoView({ 
