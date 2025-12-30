@@ -13,11 +13,13 @@
     --dark-purple: #6b11e0;
     --pink: #ff375f;
     --red: #ff453a;
-    --orange: #e08700;
+    --orange: #551a99;
     --yellow: #ffd60a;
     --green: #32d74b;
     --teal: #64d2ff;
     --indigo: #5e5ce6;
+    --indigo-hover: #7069ff;
+    --seperator: #707070;
     --accent: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     --radius-sm: 12px;
     --radius-md: 16px;
@@ -204,6 +206,255 @@ main {
     background: var(--indigo);
     color: #ffffff;
     border-color: var(--indigo);
+}
+
+.app-drawer-btn {
+    background: var(--surface);
+    border: 1px solid var(--indigo);
+    color: var(--indigo);
+    padding: 10px 20px;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.app-drawer-btn:hover {
+    background: var(--indigo);
+    color: #ffffff;
+}
+
+.app-drawer-btn i {
+    margin-right: 6px;
+}
+
+/* Hide all projects dock item on mobile */
+.all-projects-dock-item {
+    display: none;
+}
+
+/* Hide the separator before all projects on mobile too */
+.divider-before-all-projects {
+    display: none;
+}
+
+/* Show app drawer button only on desktop */
+@media (min-width: 769px) {
+    .all-projects-dock-item {
+        display: list-item;
+    }
+    
+    .divider-before-all-projects {
+        display: list-item;
+    }
+    
+    /* Hide projects nav link and section on desktop */
+    .projects-nav-link {
+        display: none;
+    }
+    
+    #projects {
+        display: none;
+    }
+}
+
+/* App Drawer Overlay */
+.app-drawer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.app-drawer-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.app-drawer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-height: 85vh;
+    background: var(--surface);
+    border-radius: 24px 24px 0 0;
+    padding: 0;
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.app-drawer-overlay.active .app-drawer {
+    transform: translateY(0);
+}
+
+.app-drawer-header {
+    position: sticky;
+    top: 0;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 0;
+    padding: 32px 32px 16px 32px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    z-index: 10;
+}
+
+.app-drawer-header h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0;
+}
+
+.drawer-controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.drawer-search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 10px 16px;
+    transition: border-color 0.2s ease;
+    width: 300px;
+}
+
+.drawer-search-container:focus-within {
+    border-color: var(--indigo);
+}
+
+.drawer-search-container i {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.drawer-search {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+}
+
+.drawer-search::placeholder {
+    color: var(--text-secondary);
+}
+
+.drawer-close-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.drawer-close-btn:hover {
+    background: var(--bg);
+    color: var(--text);
+}
+
+.drawer-filters {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.drawer-filter-btn {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    padding: 10px 16px;
+    border-radius: 24px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    height: 42px;
+    display: flex;
+    align-items: center;
+}
+
+.drawer-filter-btn:hover {
+    background: var(--surface);
+    color: var(--text);
+}
+
+.drawer-filter-btn.active {
+    background: var(--indigo);
+    color: #ffffff;
+    border-color: var(--indigo);
+}
+
+.app-drawer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 20px;
+    padding: 24px 32px 32px 32px;
+    overflow-y: auto;
+    flex: 1;
+    background: var(--surface);
+}
+
+/* Show badges in app drawer (limit to 3) */
+.app-drawer-grid .tech-badges {
+    display: flex;
+}
+
+.app-drawer-grid .tech-badges .badge:nth-child(n+4) {
+    display: none;
+}
+
+/* Custom scrollbar for app drawer */
+.app-drawer-grid::-webkit-scrollbar {
+    width: 10px;
+}
+
+.app-drawer-grid::-webkit-scrollbar-track {
+    background: var(--surface);
+}
+
+.app-drawer-grid::-webkit-scrollbar-thumb {
+    background: var(--indigo);
+    border-radius: 5px;
+    border: 2px solid var(--surface);
+}
+
+.app-drawer-grid::-webkit-scrollbar-thumb:hover {
+    background: var(--indigo);
 }
 
 .projects-grid {
@@ -551,7 +802,8 @@ main {
 }
     
 .dock li a:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .dock ul {
@@ -567,8 +819,8 @@ main {
 
 .dock li.divider {
     width: 1.5px;
-    height: 28px;
-    background: var(--border);
+    height: 20px;
+    background: var(--seperator);
     margin: 0 8px;
     opacity: 0.8;
 }
@@ -583,7 +835,8 @@ main {
     color: var(--text);
     font-size: 13px;
     font-weight: 500;
-    transition: background 0.2s ease;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
 }
 
 .dock li a i {
@@ -595,7 +848,8 @@ main {
 }
 
 .dock li a:hover {
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .dock li a.active {
@@ -688,10 +942,6 @@ main {
     }
     
     .dock li a span {
-        display: none;
-    }
-    
-    .dock li.divider {
         display: none;
     }
     
@@ -802,7 +1052,7 @@ main {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--indigo);
+    background: var(--indigo-hover);
 }
 
 /* Selection styling */

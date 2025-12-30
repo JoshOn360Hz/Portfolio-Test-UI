@@ -13,20 +13,20 @@
     <meta property="og:url" content="https://joshmansfielddevelopment.com">
     <meta property="og:title" content="Josh Mansfield - iOS & Frontend Developer">
     <meta property="og:description" content="London-based iOS and frontend developer.">
-    <meta property="og:image" content="/assets/favico/web-app-manifest-512x512.png">
+    <meta property="og:image" content="assets/favico/web-app-manifest-512x512.png">
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Josh Mansfield - iOS & Frontend Developer">
     <meta name="twitter:description" content="London-based iOS and frontend developer specializing in Swift, React, and modern web technologies.">
-    <meta name="twitter:image" content="/assets/favico/web-app-manifest-512x512.png">
+    <meta name="twitter:image" content="assets/favico/web-app-manifest-512x512.png">
 
     <!-- Favicons -->
-    <link rel="icon" type="image/png" href="/assets/favico/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/assets/favico/favicon.svg" />
-    <link rel="shortcut icon" href="/assets/favico/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favico/apple-touch-icon.png" />
-    <link rel="manifest" href="/assets/favico/site.webmanifest" />
+    <link rel="icon" type="image/png" href="assets/favico/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="assets/favico/favicon.svg" />
+    <link rel="shortcut icon" href="assets/favico/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favico/apple-touch-icon.png" />
+    <link rel="manifest" href="assets/favico/site.webmanifest" />
 
     <title>Josh Mansfield</title>
 
@@ -39,8 +39,8 @@
         <section id="home" class="section hero">
             <div class="hero-content">
                 <div class="hero-header">
-                    <h2 class="greeting">Hi, I'm Josh </h2>
-                    <p class="intro-lead">I am a London and Bristol based iOS and frontend developer specializing in Swift, React and modern web technologies.</p>
+                    <h2 class="greeting">Hi, I'm Josh 👋</h2>
+                    <p class="intro-lead">I am a London and Bristol based mobile and frontend developer specializing in Swift, React and modern web technologies.</p>
                 </div>
                 <h3 class="intro-subtitle">Why Choose Me?</h3>
                 <div class="intro-cards">
@@ -73,6 +73,7 @@
                 <button class="filter-btn" data-filter="web">Web</button>
                 <button class="filter-btn" data-filter="hardware">Hardware</button>
                 <button class="filter-btn" data-filter="other">Other</button>
+                
             </div>
             <div class="projects-grid">
                 <!-- iOS Projects-->
@@ -212,7 +213,7 @@
                         <img src="assets/apps/web/tbj-logo.png" alt="Tech By Josh icon">
                     </div>
                     <h3>Tech By Josh</h3>
-                    <p class="project-description"The website for my tech support business built with JS, CSS and HTML. Professional services with modern design.</p>
+                    <p class="project-description">The website for my tech support business built with JS, CSS and HTML. Professional services with modern design.</p>
                     <div class="tech-badges">
                         <span class="badge">HTML</span>
                         <span class="badge">CSS</span>
@@ -390,6 +391,35 @@
                 </div>
             </div>
         </section>
+
+        <!-- App Drawer Overlay -->
+        <div class="app-drawer-overlay" id="appDrawer">
+            <div class="app-drawer">
+                <div class="app-drawer-header">
+                    <h3></h3>
+                    <div class="drawer-controls">
+                        <div class="drawer-search-container">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="drawerSearch" class="drawer-search" placeholder="Search projects...">
+                        </div>
+                        <div class="drawer-filters">
+                            <button class="drawer-filter-btn active" data-filter="all">All</button>
+                            <button class="drawer-filter-btn" data-filter="ios">iOS</button>
+                            <button class="drawer-filter-btn" data-filter="web">Web</button>
+                            <button class="drawer-filter-btn" data-filter="hardware">Hardware</button>
+                            <button class="drawer-filter-btn" data-filter="other">Other</button>
+                        </div>
+                    </div>
+                    <button class="drawer-close-btn" id="closeDrawer">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="app-drawer-grid" id="drawerProjects">
+                    <!-- Projects will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+
         <section id="skills" class="section">
             <h2 class="section-title">Skills & Expertise</h2>
             
@@ -570,13 +600,15 @@
     <nav class="dock">
         <ul>
             <li><a href="#home" title="Home"><i class="fa-solid fa-house"></i><span>Home</span></a></li>
-            <li><a href="#projects" title="Projects"><i class="fa-solid fa-file-code"></i><span>Projects</span></a></li>
+            <li class="projects-nav-link"><a href="#projects" title="Projects"><i class="fa-solid fa-file-code"></i><span>Projects</span></a></li>
             <li><a href="#skills" title="Skills"><i class="fa-solid fa-code"></i><span>Skills</span></a></li>
             <li><a href="#experience" title="Experience"><i class="fa-solid fa-briefcase"></i><span>Experience</span></a></li>
             <li class="divider"></li>
             <li><a href="https://github.com/JoshOn360Hz" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a></li>
             <li><a href="mailto:joshimansfield@icloud.com" target="_blank" title="Email"><i class="fa-solid fa-envelope"></i></a></li>
             <li><a href="assets/cv/Josh_Mansfield_CV.pdf" target="_blank" title="CV/Resume" class="cv-link"><img src="assets/icon/cv.png" alt="CV" class="cv-icon"></a></li>
+            <li class="divider divider-before-all-projects"></li>
+            <li class="all-projects-dock-item"><a href="#" id="openDrawerDock" title=" All Projects"><i class="fa-solid fa-grip"></i><span>Projects</span></a></li>
         </ul>   
     </nav>
     <script src="src/script.js"></script>
