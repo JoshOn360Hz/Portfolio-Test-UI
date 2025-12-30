@@ -47,6 +47,19 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Hide scrollbar on mobile */
+@media (max-width: 768px) {
+    html, body {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+    
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+        display: none;  /* Chrome, Safari and Opera */
+    }
+}
+
 main {
     max-width: 980px;
     width: 100%;
