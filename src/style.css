@@ -802,7 +802,7 @@ main {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--text-indigo);
+    background: var(--indigo);
 }
 
 /* Selection styling */
