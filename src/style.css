@@ -495,6 +495,37 @@ main {
     font-style: italic;
 }
 
+.cv-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 48px;
+}
+
+.cv-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 32px;
+    background: var(--indigo);
+    color: var(--text);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.cv-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    background: #7069ff;
+}
+
+.cv-button i {
+    font-size: 18px;
+}
+
 .dock {
     position: fixed;
     bottom: 24px;
@@ -661,21 +692,15 @@ main {
     }
     
     .experience-timeline {
-        padding-left: 56px;
+        padding-left: 0;
     }
     
     .timeline-icon {
-        left: -56px;
-        width: 42px;
-        height: 42px;
-    }
-    
-    .timeline-icon i {
-        font-size: 18px;
+        display: none;
     }
     
     .experience-timeline::before {
-        left: 19px;
+        display: none;
     }
 }
 
@@ -726,6 +751,18 @@ main {
     
     .experience-card {
         padding: 24px;
+    }
+    
+    .experience-timeline {
+        padding-left: 0;
+    }
+    
+    .experience-timeline::before {
+        display: none;
+    }
+    
+    .timeline-icon {
+        display: none;
     }
     
     .dock {
