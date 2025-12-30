@@ -77,7 +77,7 @@ main {
 }
 
 .greeting {
-    padding-top: 100px;
+    padding-top: 20px;
     font-size: 64px;
     font-weight: 700;
     margin-bottom: 24px;
@@ -221,7 +221,6 @@ main {
 .project-icon {
     width: 72px;
     height: 72px;
-    background: var(--blue);
     border-radius: 18px;
     display: flex;
     align-items: center;
@@ -274,7 +273,11 @@ main {
     white-space: nowrap;
 }
 
-
+.project-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
 
 .download-button, .download-button-github, .download-button-arduino, .download-button-fortnite {
     padding: 1rem 1rem;
