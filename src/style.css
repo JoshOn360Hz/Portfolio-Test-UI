@@ -296,12 +296,20 @@ main {
     padding: 1rem 1rem;
     border-radius: 12px;
     font-weight: 500;
+    font-size: 15px;
     cursor: pointer;
     transition: all 0.3s ease;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+}
+
+.download-button i, 
+.download-button-github i, 
+.download-button-arduino i, 
+.download-button-fortnite i {
+    font-size: 15px;
 }
 
 .download-button {
